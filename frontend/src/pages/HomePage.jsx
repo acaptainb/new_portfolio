@@ -5,13 +5,13 @@ function HomePage() {
         <section className="hero">
             <div className="container">
                 <div className="hero-content">
-                    <span className="hero-tagline">Computer Science & Cybersecurity</span>
-                    <h1 className="hero-name">Alex Chen</h1>
-                    <p className="hero-title">Building secure systems that make a difference</p>
+                    <span className="hero-tagline">Computer Engineering</span>
+                    <h1 className="hero-name">Abdulaziz Abbasov</h1>
+                    <p className="hero-title">Building full-stack and secure applications</p>
                     <p className="hero-description">
-                        I'm a passionate computer science student specializing in cybersecurity.
-                        I love exploring vulnerabilities, building secure applications, and competing
-                        in CTF challenges. Currently focused on network security and ethical hacking.
+                        I'm a Computer Engineering student focused on full-stack development and cybersecurity.
+                        I enjoy designing practical products, building reliable backend systems, and shipping
+                        polished user experiences.
                     </p>
                     <div className="hero-cta">
                         <Link to="/projects" className="btn btn-primary">

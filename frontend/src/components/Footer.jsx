@@ -2,7 +2,7 @@ function Footer() {
     return (
         <footer className="footer">
             <div className="container footer-content">
-                <p className="footer-text">© 2026 Alex Chen. All rights reserved.</p>
+                <p className="footer-text">© 2026 Abdulaziz Abbasov. All rights reserved.</p>
                 <div className="footer-links">
                     <a
                         href="https://github.com"

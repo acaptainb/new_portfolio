@@ -3,10 +3,10 @@ import database from './database.js';
 // Sample projects data
 const projects = [
     {
-        title: 'Network Security Scanner',
-        description: 'A Python-based tool that scans local networks for vulnerabilities, open ports, and potential security risks. Features automated reporting and remediation suggestions.',
-        techStack: 'Python, Nmap, Scapy, SQLite',
-        link: 'https://github.com/username/network-scanner',
+        title: 'NoteWorks',
+        description: 'A full-stack note-taking application with authentication, real-time-friendly APIs, and clean UX for organizing personal and academic notes.',
+        techStack: 'Vue, JavaScript, Node.js, NoSQL, REST APIs, Cloud Services',
+        link: 'https://github.com/acaptainb/noteworks',
         displayOrder: 1
     },
     {
@@ -35,10 +35,10 @@ const projects = [
 // Sample experience data
 const experience = [
     {
-        title: 'Congressional App Challenge Winner',
-        description: 'Developed an award-winning application addressing local community needs. Selected as regional winner from over 200 submissions.',
+        title: 'Congressional App Challenge Winner (ID-01)',
+        description: 'Recognized in the Congressional App Challenge for ID-01 with a project focused on practical impact and technical execution.',
         category: 'award',
-        date: '2025',
+        date: '2024',
         displayOrder: 1
     },
     {

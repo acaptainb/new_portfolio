@@ -12,10 +12,31 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+function normalizeOrigin(origin) {
+    return origin ? origin.replace(/\/$/, '') : origin;
+}
+
+const configuredOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
+    .split(',')
+    .map((origin) => normalizeOrigin(origin.trim()))
+    .filter(Boolean);
+
 // Middleware
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-    methods: ['GET', 'POST'],
+    origin: (origin, callback) => {
+        // Allow non-browser requests (curl, health checks, server-to-server)
+        if (!origin) {
+            return callback(null, true);
+        }
+
+        const normalized = normalizeOrigin(origin);
+        if (configuredOrigins.includes(normalized)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error('Not allowed by CORS'));
+    },
+    methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'x-secret-token']
 }));
 app.use(express.json({ limit: '10kb' }));
@@ -56,10 +77,11 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🚀 Backend server running at http://localhost:${PORT}`);
-    console.log(`📡 API endpoints:`);
-    console.log(`   GET  /api/health`);
-    console.log(`   GET  /api/projects`);
-    console.log(`   GET  /api/experience`);
-    console.log(`   POST /api/contact`);
+    console.log(`Backend server running at http://localhost:${PORT}`);
+    console.log('Allowed CORS origins:', configuredOrigins.join(', '));
+    console.log('API endpoints:');
+    console.log('   GET  /api/health');
+    console.log('   GET  /api/projects');
+    console.log('   GET  /api/experience');
+    console.log('   POST /api/contact');
 });
