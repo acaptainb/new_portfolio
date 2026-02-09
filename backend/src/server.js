@@ -16,9 +16,27 @@ function normalizeOrigin(origin) {
     return origin ? origin.replace(/\/$/, '') : origin;
 }
 
+function toOrigin(value) {
+    if (!value) {
+        return null;
+    }
+
+    const trimmed = value.trim();
+    if (!trimmed) {
+        return null;
+    }
+
+    try {
+        return normalizeOrigin(new URL(trimmed).origin);
+    } catch {
+        // Fallback for plain origins like http://localhost:5173 without strict URL parsing
+        return normalizeOrigin(trimmed);
+    }
+}
+
 const configuredOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
     .split(',')
-    .map((origin) => normalizeOrigin(origin.trim()))
+    .map((origin) => toOrigin(origin))
     .filter(Boolean);
 
 // Middleware
