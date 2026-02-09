@@ -29,15 +29,32 @@ function toOrigin(value) {
     try {
         return normalizeOrigin(new URL(trimmed).origin);
     } catch {
-        // Fallback for plain origins like http://localhost:5173 without strict URL parsing
         return normalizeOrigin(trimmed);
     }
 }
 
-const configuredOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173')
+const configuredOrigins = (process.env.FRONTEND_URL || 'http://localhost:5173,https://acaptainb.github.io')
     .split(',')
     .map((origin) => toOrigin(origin))
     .filter(Boolean);
+
+function isAllowedOrigin(origin) {
+    const normalized = normalizeOrigin(origin);
+    if (configuredOrigins.includes(normalized)) {
+        return true;
+    }
+
+    try {
+        const hostname = new URL(normalized).hostname;
+        if (hostname.endsWith('.github.io')) {
+            return true;
+        }
+    } catch {
+        return false;
+    }
+
+    return false;
+}
 
 // Middleware
 app.use(cors({
@@ -47,11 +64,11 @@ app.use(cors({
             return callback(null, true);
         }
 
-        const normalized = normalizeOrigin(origin);
-        if (configuredOrigins.includes(normalized)) {
+        if (isAllowedOrigin(origin)) {
             return callback(null, true);
         }
 
+        console.warn('Blocked by CORS:', origin);
         return callback(new Error('Not allowed by CORS'));
     },
     methods: ['GET', 'POST', 'OPTIONS'],
