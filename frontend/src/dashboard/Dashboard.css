@@ -1,0 +1,292 @@
+/* ========================================
+   Futuristic Dashboard Theme - Cyber Vault
+   ======================================== */
+
+.dashboard-root {
+    --dash-bg: #050507;
+    --dash-panel: rgba(20, 20, 25, 0.8);
+    --dash-border: #1a2a3a;
+    --dash-accent: #00f2ff;
+    /* Cyan */
+    --dash-accent-glow: rgba(0, 242, 255, 0.2);
+    --dash-secondary: #bc13fe;
+    /* Purple */
+    --dash-secondary-glow: rgba(188, 19, 254, 0.2);
+    --dash-text: #e0f0ff;
+    --dash-text-muted: #8090a0;
+    --dash-font: 'JetBrains Mono', 'Fira Code', monospace;
+
+    font-family: var(--dash-font);
+    background-color: var(--dash-bg);
+    color: var(--dash-text);
+    min-height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/* Background Animated Grid */
+.dashboard-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(var(--dash-border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--dash-border) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center;
+    mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+    opacity: 0.1;
+    animation: bg-move 60s linear infinite;
+    z-index: -1;
+}
+
+@keyframes bg-move {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 500px 500px;
+    }
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 60px 1fr;
+    height: 100vh;
+    gap: 1px;
+    background: var(--dash-border);
+}
+
+/* Header */
+.dashboard-header {
+    grid-column: 1 / -1;
+    background: var(--dash-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--dash-accent);
+    box-shadow: 0 0 15px var(--dash-accent-glow);
+}
+
+.system-status {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--dash-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--dash-accent);
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+    background: var(--dash-bg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--dash-text-muted);
+    padding: 12px 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.nav-btn:hover {
+    background: var(--dash-accent-glow);
+    color: var(--dash-accent);
+}
+
+.nav-btn.active {
+    border-left: 3px solid var(--dash-accent);
+    background: rgba(0, 242, 255, 0.05);
+    color: var(--dash-text);
+    border-color: var(--dash-accent);
+}
+
+/* Content Area */
+.dashboard-content {
+    background: var(--dash-bg);
+    padding: 30px;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Modules / Panels */
+.module-panel {
+    background: var(--dash-panel);
+    border: 1px solid var(--dash-border);
+    padding: 20px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.module-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--dash-accent), transparent);
+}
+
+.module-title {
+    font-size: 14px;
+    color: var(--dash-accent);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Specific component styles */
+.note-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--dash-border);
+    color: var(--dash-text);
+    padding: 15px;
+    border-radius: 4px;
+    resize: none;
+    font-family: inherit;
+    margin-bottom: 10px;
+}
+
+.note-input:focus {
+    outline: none;
+    border-color: var(--dash-accent);
+}
+
+.cyber-btn {
+    background: var(--dash-accent);
+    color: var(--dash-bg);
+    border: none;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+    clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%);
+}
+
+.cyber-btn:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 0 10px var(--dash-accent-glow);
+}
+
+.vault-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.media-card {
+    aspect-ratio: 1;
+    border: 1px solid var(--dash-border);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.media-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.media-card:hover img {
+    transform: scale(1.1);
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 5px;
+}
+
+.message-item {
+    border-bottom: 1px solid var(--dash-border);
+    padding: 15px 0;
+}
+
+.message-item:last-child {
+    border-bottom: none;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.message-author {
+    color: var(--dash-accent);
+}
+
+.message-date {
+    color: var(--dash-text-muted);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dash-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--dash-border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--dash-accent);
+}
